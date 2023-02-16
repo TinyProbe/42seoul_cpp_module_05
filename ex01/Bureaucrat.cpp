@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:52 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/16 21:48:05 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/16 21:46:33 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& rhs) {
 	*this = rhs;
 }
 Bureaucrat::Bureaucrat(const std::string& name) : name(name), grade(MIN) {}
-Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name) {
+Bureaucrat::Bureaucrat(const std::string& name, const int& grade) : name(name) {
 	Bureaucrat::gradeFilter(grade);
 	this->grade = grade;
 }
