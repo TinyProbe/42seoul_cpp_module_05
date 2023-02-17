@@ -6,21 +6,25 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:51 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 03:52:45 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/17 08:54:24 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main() {
-	Bureaucrat crat("John", 100);
-	Form f1("Modern dev project", 100, 50);
-	Form f2("Govern new project", 80, 40);
-
-	crat.signForm(f1);
-	crat.signForm(f2);
-	crat.upGrade(30);
-	crat.signForm(f2);
+	Bureaucrat crat("goodguy", 55);
+	ShrubberyCreationForm scf0("home");
+	RobotomyRequestForm rrf0("david");
+	PresidentialPardonForm ppf0("superman");
+	crat.signForm(scf0);
+	crat.execForm(scf0);
+	crat.signForm(rrf0);
+	crat.execForm(rrf0);
+	crat.signForm(ppf0);
+	crat.execForm(ppf0);
 }

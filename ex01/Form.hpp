@@ -1,49 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 05:56:51 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 03:12:26 by tkong            ###   ########.fr       */
+/*   Created: 2023/02/16 21:50:37 by tkong             #+#    #+#             */
+/*   Updated: 2023/02/17 01:55:15 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef BUREAUCRAT_HPP
-#define BUREAUCRAT_HPP
+#ifndef FORM_HPP
+#define FORM_HPP
 
 #include <iostream>
 
 #define MIN 150
 #define MAX 1
 
-class Form;
-class Bureaucrat {
+class Bureaucrat;
+class Form {
 	static const std::string GradeTooHighException;
 	static const std::string GradeTooLowException;
 	const std::string name;
-	int grade;
+	const int signRequiredGrade;
+	const int execRequiredGrade;
+	bool isSigned;
 
 	static void gradeFilter(int grade);
 
 public:
-	Bureaucrat();
-	Bureaucrat(const Bureaucrat& rhs);
-	Bureaucrat(const std::string& name);
-	Bureaucrat(const std::string& name, int grade);
-	virtual ~Bureaucrat();
-	virtual Bureaucrat& operator=(const Bureaucrat& rhs);
+	Form();
+	Form(const Form& rhs);
+	Form(const std::string& name, int srg, int erg);
+	virtual ~Form();
+	virtual Form& operator=(const Form& rhs);
 
 	virtual const std::string& getName() const;
-	virtual const int& getGrade() const;
-	virtual void upGrade(int grade);
-	virtual void downGrade(int grade);
-	virtual void signForm(Form& rhs);
+	virtual const int& getSignReqGrad() const;
+	virtual const int& getExecReqGrad() const;
+	virtual const bool& getIsSigned() const;
+	virtual void beSigned(const Bureaucrat& rhs);
 
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& rhs);
+std::ostream& operator<<(std::ostream& os, const Form& rhs);
 
 #endif

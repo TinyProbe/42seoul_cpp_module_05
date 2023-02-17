@@ -6,14 +6,15 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:52 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/16 22:59:27 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/17 09:12:10 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
-const std::string Bureaucrat::GradeTooHighException("Grade too high");
-const std::string Bureaucrat::GradeTooLowException("Grade too low");
+const std::string Bureaucrat::GradeTooHighException("Bureaucrat : Grade too high");
+const std::string Bureaucrat::GradeTooLowException("Bureaucrat : Grade too low");
 
 void Bureaucrat::gradeFilter(int grade) {
 	if (grade < MAX) {
@@ -51,7 +52,27 @@ void Bureaucrat::downGrade(int grade) {
 	Bureaucrat::gradeFilter(this->grade + grade);
 	this->grade += grade;
 }
+void Bureaucrat::signForm(AForm& rhs) {
+	try {
+		rhs.beSigned(*this);
+		std::cout << this->getName() << " signed " << rhs.getName() << '\n';
+	} catch (const std::exception& e) {
+		std::cout << this->getName() << " couldn’t sign "
+			<< rhs.getName() << " because " << e.what() << '\n';
+	}
+}
+void Bureaucrat::execForm(const AForm& rhs) {
+	try {
+		rhs.execute(*this);
+		std::cout << this->getName() << " executed " << rhs.getName() << '\n';
+	} catch (const std::exception& e) {
+		std::cout << this->getName() << " couldn’t execute "
+			<< rhs.getName() << " because " << e.what() << '\n';
+	} catch (const std::string& what) {
+		std::cout << what << '\n';
+	}
+}
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& rhs) {
-	return os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << ".";
+	return os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
 }
