@@ -6,13 +6,13 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:50:37 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 06:43:20 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 10:59:40 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
-#ifndef AFORM_HPP
-#define AFORM_HPP
+#ifndef FORM_HPP
+#define FORM_HPP
 
 #include <iostream>
 
@@ -26,11 +26,7 @@ class AForm {
 	const int execRequiredGrade;
 	bool isSigned;
 
-	static void gradeFilter(int grade);
-
-protected:
-	static const std::string GradeTooHighException;
-	static const std::string GradeTooLowException;
+	void gradeFilter(int grade) const;
 
 public:
 	AForm();
@@ -44,7 +40,15 @@ public:
 	virtual const int& getExecReqGrad() const;
 	virtual const bool& getIsSigned() const;
 	virtual void beSigned(const Bureaucrat& rhs);
-	virtual void execute(const Bureaucrat& executor) const = 0;
+	virtual void execute(Bureaucrat const& executor) const = 0;
+
+protected:
+	class GradeTooHighException : public std::exception {
+		public: const char* what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+		public: const char* what() const throw();
+	};
 
 };
 

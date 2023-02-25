@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:51 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/16 21:48:05 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 12:07:12 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@
 #define MAX 1
 
 class Bureaucrat {
-	static const std::string GradeTooHighException;
-	static const std::string GradeTooLowException;
 	const std::string name;
 	int grade;
 
-	static void gradeFilter(int grade);
+	void gradeFilter(int grade) const;
 
 public:
 	Bureaucrat();
@@ -39,6 +37,14 @@ public:
 	virtual const int& getGrade() const;
 	virtual void upGrade(int grade);
 	virtual void downGrade(int grade);
+
+private:
+	class GradeTooHighException : public std::exception {
+		public: const char* what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+		public: const char* what() const throw();
+	};
 
 };
 

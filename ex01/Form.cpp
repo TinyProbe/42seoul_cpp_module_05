@@ -6,21 +6,21 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:50:37 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 03:32:38 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 12:05:58 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
-const std::string Form::GradeTooHighException("Form : Grade too high");
-const std::string Form::GradeTooLowException("Form : Grade too low");
+const char* Form::GradeTooHighException::what() const throw() { return "Grade too high"; }
+const char* Form::GradeTooLowException::what() const throw() { return "Grade too low"; }
 
-void Form::gradeFilter(int grade) {
+void Form::gradeFilter(int grade) const {
 	if (grade < MAX) {
-		throw std::invalid_argument(Form::GradeTooHighException);
+		throw Form::GradeTooHighException();
 	} else if (grade > MIN) {
-		throw std::invalid_argument(Form::GradeTooLowException);
+		throw Form::GradeTooLowException();
 	}
 }
 
@@ -68,7 +68,7 @@ void Form::beSigned(const Bureaucrat& rhs) {
 	if (rhs.getGrade() <= this->signRequiredGrade) {
 		this->isSigned = true;
 	} else {
-		throw std::runtime_error(Form::GradeTooLowException);
+		throw Form::GradeTooLowException();
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 21:50:37 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 01:55:15 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 12:05:43 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@
 
 class Bureaucrat;
 class Form {
-	static const std::string GradeTooHighException;
-	static const std::string GradeTooLowException;
 	const std::string name;
 	const int signRequiredGrade;
 	const int execRequiredGrade;
 	bool isSigned;
 
-	static void gradeFilter(int grade);
+	void gradeFilter(int grade) const;
 
 public:
 	Form();
@@ -42,6 +40,14 @@ public:
 	virtual const int& getExecReqGrad() const;
 	virtual const bool& getIsSigned() const;
 	virtual void beSigned(const Bureaucrat& rhs);
+
+protected:
+	class GradeTooHighException : public std::exception {
+		public: const char* what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+		public: const char* what() const throw();
+	};
 
 };
 

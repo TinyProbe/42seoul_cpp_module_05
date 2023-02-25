@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:51 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 03:12:26 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 12:03:43 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@
 
 class Form;
 class Bureaucrat {
-	static const std::string GradeTooHighException;
-	static const std::string GradeTooLowException;
 	const std::string name;
 	int grade;
 
-	static void gradeFilter(int grade);
+	void gradeFilter(int grade) const;
 
 public:
 	Bureaucrat();
@@ -41,6 +39,14 @@ public:
 	virtual void upGrade(int grade);
 	virtual void downGrade(int grade);
 	virtual void signForm(Form& rhs);
+
+private:
+	class GradeTooHighException : public std::exception {
+		public: const char* what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+		public: const char* what() const throw();
+	};
 
 };
 

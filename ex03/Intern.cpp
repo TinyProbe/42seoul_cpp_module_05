@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 09:20:19 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 19:33:37 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 11:59:18 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ AForm* Intern::makeForm(const std::string& form, const std::string& target) cons
 	obj = (form == "shrubbery creation" ? new ShrubberyCreationForm(target) : obj);
 	obj = (form == "robotomy request" ? new RobotomyRequestForm(target) : obj);
 	obj = (form == "presidential parden" ? new PresidentialPardonForm(target) : obj);
-	if (obj == nullptr) {
-		std::cout << "Doesn't exist like " << form << " form\n";
+	if (obj) {
+		std::cout << "Intern creates " << form << '\n';
+		return obj;
 	}
+	std::cout << "Doesn't exist like " << form << '\n';
 	return obj;
 }

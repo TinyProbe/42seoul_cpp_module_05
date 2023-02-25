@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 04:01:29 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 08:40:53 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 11:37:51 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,20 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 	if (this == &rhs) {
 		return *this;
 	}
-	*dynamic_cast<AForm*>(this) = *dynamic_cast<const AForm*>(&rhs);
+	dynamic_cast<AForm&>(*this) = dynamic_cast<const AForm&>(rhs);
 	return *this;
 }
 
 void PresidentialPardonForm::execute(const Bureaucrat& executor) const {
-	if (executor.getGrade() <= this->getExecReqGrad()) {
-		std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox\n";
-	} else {
-		throw std::runtime_error(AForm::GradeTooLowException);
+	int err = 0;
+	err = (this->getIsSigned() == false ? 1 : err);
+	err = (executor.getGrade() > this->getExecReqGrad() ? 2 : err);
+	switch (err) {
+		case 1: throw std::runtime_error("can't execute about doesn't signed form");
+			break;
+		case 2: throw AForm::GradeTooLowException();
+			break;
+		default: break;
 	}
+	std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox\n";
 }

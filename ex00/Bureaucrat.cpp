@@ -6,20 +6,20 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:52 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/16 22:59:27 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 12:07:34 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
 
-const std::string Bureaucrat::GradeTooHighException("Grade too high");
-const std::string Bureaucrat::GradeTooLowException("Grade too low");
+const char* Bureaucrat::GradeTooHighException::what() const throw() { return "Grade too high"; }
+const char* Bureaucrat::GradeTooLowException::what() const throw() { return "Grade too low"; }
 
-void Bureaucrat::gradeFilter(int grade) {
+void Bureaucrat::gradeFilter(int grade) const {
 	if (grade < MAX) {
-		throw std::invalid_argument(Bureaucrat::GradeTooHighException);
+		throw Bureaucrat::GradeTooHighException();
 	} else if (grade > MIN) {
-		throw std::invalid_argument(Bureaucrat::GradeTooLowException);
+		throw Bureaucrat::GradeTooLowException();
 	}
 }
 
@@ -44,10 +44,16 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
 const std::string& Bureaucrat::getName() const { return this->name; }
 const int& Bureaucrat::getGrade() const { return this->grade; }
 void Bureaucrat::upGrade(int grade) {
+	if (grade < 0) {
+		throw std::invalid_argument("invalid_argument");
+	}
 	Bureaucrat::gradeFilter(this->grade - grade);
 	this->grade -= grade;
 }
 void Bureaucrat::downGrade(int grade) {
+	if (grade < 0) {
+		throw std::invalid_argument("invalid_argument");
+	}
 	Bureaucrat::gradeFilter(this->grade + grade);
 	this->grade += grade;
 }

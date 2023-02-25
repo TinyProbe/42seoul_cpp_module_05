@@ -6,7 +6,7 @@
 /*   By: tkong <tkong@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 05:56:51 by tkong             #+#    #+#             */
-/*   Updated: 2023/02/17 19:32:32 by tkong            ###   ########.fr       */
+/*   Updated: 2023/02/25 11:48:22 by tkong            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "Intern.hpp"
 
 int main() {
-	Bureaucrat crat("goodguy", 64);
+	Bureaucrat crat("goodguy", 1);
 	Intern itn;
 	AForm* scf = itn.makeForm("shrubbery creation", "1st street");
 	AForm* rrf = itn.makeForm("robotomy request", "tom");
@@ -25,22 +25,22 @@ int main() {
 
 	if (scf) {
 		crat.signForm(*scf);
-		crat.execForm(*scf);
+		crat.executeForm(*scf);
 		delete scf;
 	}
 	if (rrf) {
 		crat.signForm(*rrf);
-		crat.execForm(*rrf);
+		crat.executeForm(*rrf);
 		delete rrf;
 	}
 	if (ppf) {
 		crat.signForm(*ppf);
-		crat.execForm(*ppf);
+		crat.executeForm(*ppf);
 		delete ppf;
 	}
 	if (unknown) {
 		crat.signForm(*unknown);
-		crat.execForm(*unknown);
+		crat.executeForm(*unknown);
 		delete unknown;
 	}
 }
