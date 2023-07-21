@@ -16,23 +16,23 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm() :
 	AForm() {}
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& rhs) :
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &rhs) :
 	AForm(rhs) {}
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target) :
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) :
 	AForm(target, 145, 137) {}
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
-ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& rhs) {
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
-	dynamic_cast<AForm&>(*this) = dynamic_cast<const AForm&>(rhs);
+	dynamic_cast<AForm &>(*this) = dynamic_cast<const AForm &>(rhs);
 	return *this;
 }
 
-void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
+void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 	int err = 0;
-	err = (this->getIsSigned() == false ? 1 : err);
-	err = (executor.getGrade() > this->getExecReqGrad() ? 2 : err);
+	err = (!getSign() ? 1 : err);
+	err = (executor.getGrade() > getExecReqGrad() ? 2 : err);
 	switch (err) {
 		case 1: throw std::runtime_error("can't execute about doesn't signed form");
 			break;
@@ -40,7 +40,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 			break;
 		default: break;
 	}
-	std::ofstream ofs(this->getName() + "_shrubbery");
+	std::ofstream ofs(getName() + "_shrubbery");
 	if (!ofs.is_open()) {
 		throw std::runtime_error("File open failed");
 	}

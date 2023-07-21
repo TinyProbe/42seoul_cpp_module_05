@@ -21,23 +21,23 @@ int RobotomyRequestForm::_rand(int mn, int mx) {
 
 RobotomyRequestForm::RobotomyRequestForm() :
 	AForm() {}
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& rhs) :
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &rhs) :
 	AForm(rhs) {}
-RobotomyRequestForm::RobotomyRequestForm(const std::string& target) :
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) :
 	AForm(target, 72, 45) {}
 RobotomyRequestForm::~RobotomyRequestForm() {}
-RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& rhs) {
+RobotomyRequestForm &RobotomyRequestForm::operator=(const RobotomyRequestForm &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
-	dynamic_cast<AForm&>(*this) = dynamic_cast<const AForm&>(rhs);
+	dynamic_cast<AForm &>(*this) = dynamic_cast<const AForm &>(rhs);
 	return *this;
 }
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
 	int err = 0;
-	err = (this->getIsSigned() == false ? 1 : err);
-	err = (executor.getGrade() > this->getExecReqGrad() ? 2 : err);
+	err = (!getSign() ? 1 : err);
+	err = (executor.getGrade() > getExecReqGrad() ? 2 : err);
 	switch (err) {
 		case 1: throw std::runtime_error("can't execute about doesn't signed form");
 			break;
@@ -47,6 +47,7 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) const {
 	}
 	std::cout << "Some drilling noises ...\n";
 	std::cout << (_rand(0, 1)
-		? this->getName() + " has been robotomized successfully 50% of the time\n"
+		? getName() + " has been robotomized successfully 50% of the time\n"
 		: "The robotomy failed\n");
 }
+

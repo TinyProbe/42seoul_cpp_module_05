@@ -15,23 +15,23 @@
 
 PresidentialPardonForm::PresidentialPardonForm() :
 	AForm() {}
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& rhs) :
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &rhs) :
 	AForm(rhs) {}
-PresidentialPardonForm::PresidentialPardonForm(const std::string& target) :
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) :
 	AForm(target, 25, 5) {}
 PresidentialPardonForm::~PresidentialPardonForm() {}
-PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& rhs) {
+PresidentialPardonForm &PresidentialPardonForm::operator=(const PresidentialPardonForm &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
-	dynamic_cast<AForm&>(*this) = dynamic_cast<const AForm&>(rhs);
+	dynamic_cast<AForm &>(*this) = dynamic_cast<const AForm &>(rhs);
 	return *this;
 }
 
-void PresidentialPardonForm::execute(const Bureaucrat& executor) const {
+void PresidentialPardonForm::execute(const Bureaucrat &executor) const {
 	int err = 0;
-	err = (this->getIsSigned() == false ? 1 : err);
-	err = (executor.getGrade() > this->getExecReqGrad() ? 2 : err);
+	err = (!getSign() ? 1 : err);
+	err = (executor.getGrade() > getExecReqGrad() ? 2 : err);
 	switch (err) {
 		case 1: throw std::runtime_error("can't execute about doesn't signed form");
 			break;
@@ -39,5 +39,6 @@ void PresidentialPardonForm::execute(const Bureaucrat& executor) const {
 			break;
 		default: break;
 	}
-	std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox\n";
+	std::cout << getName() << " has been pardoned by Zaphod Beeblebrox\n";
 }
+

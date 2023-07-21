@@ -16,41 +16,44 @@
 
 #include <iostream>
 
-#define MIN 150
-#define MAX 1
-
 class Bureaucrat;
 class Form {
+	typedef unsigned long usize;
 	const std::string name;
-	const int signRequiredGrade;
-	const int execRequiredGrade;
-	bool isSigned;
+	const usize signRequiredGrade;
+	const usize execRequiredGrade;
+	bool sign;
 
-	void gradeFilter(int grade) const;
+	void gradeFilter(usize grade) const;
 
 public:
 	Form();
-	Form(const Form& rhs);
-	Form(const std::string& name, int srg, int erg);
+	Form(const Form &rhs);
+	Form(const std::string &name, usize srg, usize erg);
 	virtual ~Form();
-	virtual Form& operator=(const Form& rhs);
+	virtual Form &operator=(const Form &rhs);
 
-	virtual const std::string& getName() const;
-	virtual const int& getSignReqGrad() const;
-	virtual const int& getExecReqGrad() const;
-	virtual const bool& getIsSigned() const;
-	virtual void beSigned(const Bureaucrat& rhs);
+	virtual const std::string &getName() const;
+	virtual usize getSignReqGrad() const;
+	virtual usize getExecReqGrad() const;
+	virtual bool getSign() const;
+	virtual void beSigned(const Bureaucrat &rhs);
 
 protected:
 	class GradeTooHighException : public std::exception {
-		public: const char* what() const throw();
+		public: const char *what() const throw();
 	};
 	class GradeTooLowException : public std::exception {
-		public: const char* what() const throw();
+		public: const char *what() const throw();
+	};
+	enum Range {
+		MIN = 150,
+		MAX = 1,
 	};
 
 };
 
-std::ostream& operator<<(std::ostream& os, const Form& rhs);
+std::ostream &operator<<(std::ostream &os, const Form &rhs);
 
 #endif
+

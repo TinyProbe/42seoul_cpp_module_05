@@ -13,52 +13,48 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-const char* Bureaucrat::GradeTooHighException::what() const throw() { return "Grade too high"; }
-const char* Bureaucrat::GradeTooLowException::what() const throw() { return "Grade too low"; }
+typedef unsigned long usize;
 
-void Bureaucrat::gradeFilter(int grade) const {
-	if (grade < MAX) {
+const char *Bureaucrat::GradeTooHighException::what() const throw() { return "Grade too high"; }
+const char *Bureaucrat::GradeTooLowException::what() const throw() { return "Grade too low"; }
+
+void Bureaucrat::gradeFilter(usize grade) const {
+	if (grade < Bureaucrat::MAX) {
 		throw Bureaucrat::GradeTooHighException();
-	} else if (grade > MIN) {
+	} else if (grade > Bureaucrat::MIN) {
 		throw Bureaucrat::GradeTooLowException();
 	}
 }
 
-Bureaucrat::Bureaucrat() : name("(None)"), grade(MIN) {}
-Bureaucrat::Bureaucrat(const Bureaucrat& rhs) { *this = rhs; }
-Bureaucrat::Bureaucrat(const std::string& name) : name(name), grade(MIN) {}
-Bureaucrat::Bureaucrat(const std::string& name, int grade) : name(name) {
+Bureaucrat::Bureaucrat() : name("(None)"), grade(Bureaucrat::MIN) {}
+Bureaucrat::Bureaucrat(const Bureaucrat &rhs) { *this = rhs; }
+Bureaucrat::Bureaucrat(const std::string &name) : name(name), grade(Bureaucrat::MIN) {}
+Bureaucrat::Bureaucrat(const std::string &name, usize grade) : name(name) {
 	Bureaucrat::gradeFilter(grade);
 	this->grade = grade;
 }
 Bureaucrat::~Bureaucrat() {}
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
 	Bureaucrat::gradeFilter(rhs.grade);
-	const_cast<std::string&>(this->name) = rhs.name;
-	this->grade = rhs.grade;
+	const_cast<std::string &>(name) = rhs.name;
+	grade = rhs.grade;
 	return *this;
 }
 
-const std::string& Bureaucrat::getName() const { return this->name; }
-const int& Bureaucrat::getGrade() const { return this->grade; }
-void Bureaucrat::upGrade(int grade) {
-	if (grade < 0) {
-		throw std::invalid_argument("invalid_argument");
-	}
+const std::string &Bureaucrat::getName() const { return name; }
+usize Bureaucrat::getGrade() const { return grade; }
+void Bureaucrat::upGrade(usize grade) {
 	Bureaucrat::gradeFilter(this->grade - grade);
 	this->grade -= grade;
 }
-void Bureaucrat::downGrade(int grade) {
-	if (grade < 0) {
-		throw std::invalid_argument("invalid_argument");
-	}
+void Bureaucrat::downGrade(usize grade) {
 	Bureaucrat::gradeFilter(this->grade + grade);
 	this->grade += grade;
 }
-void Bureaucrat::signForm(Form& rhs) {
+void Bureaucrat::signForm(Form &rhs) {
 	try {
 		rhs.beSigned(*this);
 		std::cout << this->getName() << " signed " << rhs.getName() << '\n';
@@ -68,6 +64,7 @@ void Bureaucrat::signForm(Form& rhs) {
 	}
 }
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& rhs) {
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &rhs) {
 	return os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade() << ".";
 }
+

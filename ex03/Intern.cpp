@@ -16,17 +16,17 @@
 #include "PresidentialPardonForm.hpp"
 
 Intern::Intern() {}
-Intern::Intern(const Intern& rhs) { *this = rhs; }
+Intern::Intern(const Intern &rhs) { *this = rhs; }
 Intern::~Intern() {}
-Intern& Intern::operator=(const Intern& rhs) {
+Intern &Intern::operator=(const Intern &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
 	return *this;
 }
 
-AForm* Intern::makeForm(const std::string& form, const std::string& target) const {
-	AForm* obj = nullptr;
+AForm *Intern::makeForm(const std::string &form, const std::string &target) const {
+	AForm *obj = nullptr;
 	obj = (form == "shrubbery creation" ? new ShrubberyCreationForm(target) : obj);
 	obj = (form == "robotomy request" ? new RobotomyRequestForm(target) : obj);
 	obj = (form == "presidential parden" ? new PresidentialPardonForm(target) : obj);

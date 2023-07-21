@@ -21,11 +21,11 @@ class Intern {
 
 public:
 	Intern();
-	Intern(const Intern& rhs);
+	Intern(const Intern &rhs);
 	~Intern();
-	Intern& operator=(const Intern& rhs);
+	Intern &operator=(const Intern &rhs);
 
-	AForm* makeForm(const std::string& form, const std::string& target) const;
+	AForm *makeForm(const std::string &form, const std::string &target) const;
 
 };
 

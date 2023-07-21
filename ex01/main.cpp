@@ -24,3 +24,4 @@ int main() {
 	crat.upGrade(30);
 	crat.signForm(f2);
 }
+

@@ -13,68 +13,71 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-const char* AForm::GradeTooHighException::what() const throw() { return "Grade too high"; }
-const char* AForm::GradeTooLowException::what() const throw() { return "Grade too low"; }
+typedef unsigned long usize;
 
-void AForm::gradeFilter(int grade) const {
-	if (grade < MAX) {
+const char *AForm::GradeTooHighException::what() const throw() { return "Grade too high"; }
+const char *AForm::GradeTooLowException::what() const throw() { return "Grade too low"; }
+
+void AForm::gradeFilter(usize grade) const {
+	if (grade < AForm::MAX) {
 		throw AForm::GradeTooHighException();
-	} else if (grade > MIN) {
+	} else if (grade > AForm::MIN) {
 		throw AForm::GradeTooLowException();
 	}
 }
 
 AForm::AForm() :
 	name("(None)"),
-	signRequiredGrade(MAX),
-	execRequiredGrade(MAX),
-	isSigned() {}
-AForm::AForm(const AForm& rhs) :
+	signRequiredGrade(AForm::MAX),
+	execRequiredGrade(AForm::MAX),
+	sign() {}
+AForm::AForm(const AForm &rhs) :
 	name(),
 	signRequiredGrade(),
 	execRequiredGrade(),
-	isSigned()
+	sign()
 {
 	*this = rhs;
 }
-AForm::AForm(const std::string& name, int srg, int erg) :
+AForm::AForm(const std::string &name, usize srg, usize erg) :
 	name(name),
 	signRequiredGrade(srg),
 	execRequiredGrade(erg),
-	isSigned()
+	sign()
 {
 	AForm::gradeFilter(srg);
 	AForm::gradeFilter(erg);
 }
 AForm::~AForm() {}
-AForm& AForm::operator=(const AForm& rhs) {
+AForm &AForm::operator=(const AForm &rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
 	AForm::gradeFilter(rhs.signRequiredGrade);
 	AForm::gradeFilter(rhs.execRequiredGrade);
-	const_cast<std::string&>(this->name) = rhs.name;
-	const_cast<int&>(this->signRequiredGrade) = rhs.signRequiredGrade;
-	const_cast<int&>(this->execRequiredGrade) = rhs.execRequiredGrade;
-	this->isSigned = rhs.isSigned;
+	const_cast<std::string &>(name) = rhs.name;
+	const_cast<usize &>(signRequiredGrade) = rhs.signRequiredGrade;
+	const_cast<usize &>(execRequiredGrade) = rhs.execRequiredGrade;
+	sign = rhs.sign;
 	return *this;
 }
 
-const std::string& AForm::getName() const { return this->name; }
-const int& AForm::getSignReqGrad() const { return this->signRequiredGrade; }
-const int& AForm::getExecReqGrad() const { return this->execRequiredGrade; }
-const bool& AForm::getIsSigned() const { return this->isSigned; }
-void AForm::beSigned(const Bureaucrat& rhs) {
-	if (rhs.getGrade() <= this->signRequiredGrade) {
-		this->isSigned = true;
+const std::string &AForm::getName() const { return name; }
+usize AForm::getSignReqGrad() const { return signRequiredGrade; }
+usize AForm::getExecReqGrad() const { return execRequiredGrade; }
+bool AForm::getSign() const { return sign; }
+void AForm::beSigned(const Bureaucrat &rhs) {
+	if (rhs.getGrade() <= signRequiredGrade) {
+		sign = true;
 	} else {
 		throw AForm::GradeTooLowException();
 	}
 }
 
-std::ostream& operator<<(std::ostream& os, const AForm& rhs) {
+std::ostream &operator<<(std::ostream &os, const AForm &rhs) {
 	return os << rhs.getName()
 		<< " form's signRequiredGrade " << rhs.getSignReqGrad()
 		<< ", execRequiredGrade " << rhs.getExecReqGrad()
-		<< ", isSigned " << rhs.getIsSigned();
+		<< ", isSigned " << rhs.getSign();
 }
+

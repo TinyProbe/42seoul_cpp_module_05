@@ -35,3 +35,4 @@ int main() {
 	};
 	std::cout << b << '\n';
 }
+

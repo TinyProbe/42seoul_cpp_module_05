@@ -20,13 +20,14 @@ class PresidentialPardonForm : public AForm {
 
 public:
 	PresidentialPardonForm();
-	PresidentialPardonForm(const PresidentialPardonForm& rhs);
-	PresidentialPardonForm(const std::string& target);
-	~PresidentialPardonForm();
-	PresidentialPardonForm& operator=(const PresidentialPardonForm& rhs);
+	PresidentialPardonForm(const PresidentialPardonForm &rhs);
+	PresidentialPardonForm(const std::string &target);
+	virtual ~PresidentialPardonForm();
+	virtual PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
 
-	virtual void execute(const Bureaucrat& executor) const;
+	virtual void execute(const Bureaucrat &executor) const;
 
 };
 
 #endif
+
