@@ -42,7 +42,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
 	}
 	std::ofstream ofs(getName() + "_shrubbery");
 	if (!ofs.is_open()) {
-		throw std::runtime_error("File open failed");
+		throw std::runtime_error("Failed to open");
 	}
 	ofs << "                                                     .           \n"
 		<< "                                          .         ;            \n" 

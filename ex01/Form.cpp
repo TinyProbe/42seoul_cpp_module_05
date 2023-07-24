@@ -78,6 +78,6 @@ std::ostream &operator<<(std::ostream &os, const Form &rhs) {
 	return os << rhs.getName()
 		<< " form's signRequiredGrade " << rhs.getSignReqGrad()
 		<< ", execRequiredGrade " << rhs.getExecReqGrad()
-		<< ", isSigned " << rhs.getSign();
+		<< ", sign " << rhs.getSign();
 }
 
