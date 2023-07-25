@@ -17,7 +17,7 @@
 #include <iostream>
 
 class Bureaucrat {
-	typedef unsigned long int usize;
+	typedef unsigned long usize;
 	const std::string name;
 	usize grade;
 

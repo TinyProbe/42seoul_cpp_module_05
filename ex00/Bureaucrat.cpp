@@ -12,7 +12,7 @@
 
 #include "Bureaucrat.hpp"
 
-typedef unsigned long int usize;
+typedef unsigned long usize;
 
 const char *Bureaucrat::GradeTooHighException::what() const throw() { return "Grade too high"; }
 const char *Bureaucrat::GradeTooLowException::what() const throw() { return "Grade too low"; }
