@@ -26,10 +26,10 @@ Intern &Intern::operator=(const Intern &rhs) {
 }
 
 AForm *Intern::makeForm(const std::string &form, const std::string &target) const {
-	AForm *obj = nullptr;
+	AForm *obj = NULL;
 	obj = (form == "shrubbery creation" ? new ShrubberyCreationForm(target) : obj);
 	obj = (form == "robotomy request" ? new RobotomyRequestForm(target) : obj);
-	obj = (form == "presidential parden" ? new PresidentialPardonForm(target) : obj);
+	obj = (form == "presidential pardon" ? new PresidentialPardonForm(target) : obj);
 	if (obj) {
 		std::cout << "Intern creates " << form << '\n';
 		return obj;

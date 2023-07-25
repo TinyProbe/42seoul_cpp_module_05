@@ -22,10 +22,10 @@ class Intern {
 public:
 	Intern();
 	Intern(const Intern &rhs);
-	~Intern();
-	Intern &operator=(const Intern &rhs);
+	virtual ~Intern();
+	virtual Intern &operator=(const Intern &rhs);
 
-	AForm *makeForm(const std::string &form, const std::string &target) const;
+	virtual AForm *makeForm(const std::string &form, const std::string &target) const;
 
 };
 

@@ -11,20 +11,17 @@
 /* ************************************************************************** */
 
 #include <iostream>
+#include "AForm.hpp"
+#include "Intern.hpp"
 #include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
 
 int main() {
-	Bureaucrat crat("goodguy", 1);
-	ShrubberyCreationForm scf0("home");
-	RobotomyRequestForm rrf0("david");
-	PresidentialPardonForm ppf0("superman");
-	crat.signForm(scf0);
-	crat.executeForm(scf0);
-	crat.signForm(rrf0);
-	crat.executeForm(rrf0);
-	crat.signForm(ppf0);
-	crat.executeForm(ppf0);
+	Intern intern;
+	AForm *scf = intern.makeForm("shrubbery creation", "scf1");
+	AForm *rrf = intern.makeForm("robotomy request", "rrf1");
+	AForm *ppf = intern.makeForm("presidential parden", "ppf1");
+	if (scf != NULL) { delete scf; }
+	if (rrf != NULL) { delete rrf; }
+	if (ppf != NULL) { delete ppf; }
 }
+
